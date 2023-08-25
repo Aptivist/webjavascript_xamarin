@@ -135,7 +135,7 @@
         </Compile>
     </ItemGroup>
     <ItemGroup>
-      <EmbeddedResource Include="sampleweb.html" />
+      <BundleResource Include="Resources\sampleweb.html" />
     </ItemGroup>
     <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
 </Project>

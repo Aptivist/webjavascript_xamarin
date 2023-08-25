@@ -1,5 +1,6 @@
 ﻿using Foundation;
 using System;
+using System.Linq;
 using UIKit;
 using WebKit;
 
@@ -8,7 +9,7 @@ namespace WebViewJavascript
     public partial class ViewController : UIViewController, IWKScriptMessageHandler
     {
         private string mNativeToWebHandler = "jsMessageHandler";
-        private string mWebPageName = "mWebPageName";
+        private string mWebPageName = "sampleweb";
         private string mWebPageExtension = "html";
 
         
@@ -22,13 +23,21 @@ namespace WebViewJavascript
 
             sendDataButton.TouchUpInside += SendsendButtonPressedDataButton_TouchUpInside;
 
-            var urls = NSBundle.MainBundle.GetUrlsForResourcesWithExtension(mWebPageName, mWebPageExtension);
-            var url = urls[0];//always is first element
+            var url = NSBundle.MainBundle.GetUrlForResource(mWebPageName, mWebPageExtension);
+            //var nsUrl = new NSUrl(url);
+            //var url = urls.FirstOrDefault();//always is first element
             webView.Configuration.Preferences.JavaScriptEnabled = true;
-            webView.LoadFileUrl(url, url.RemoveLastPathComponent());
+            //var readUrl = nsUrl.RemoveLastPathComponent();
+            webView.LoadFileUrl(url, url);
 
             var contentController = new WKUserContentController();
             webView.Configuration.UserContentController = contentController;
+
+            //other way
+            //var script = new WKUserScript(new NSString(JavaScriptFunction), WKUserScriptInjectionTime.AtDocumentEnd, false);
+            //contentController.AddUserScript(script);
+
+
             webView.Configuration.UserContentController.AddScriptMessageHandler(this, mNativeToWebHandler);
         }
 
