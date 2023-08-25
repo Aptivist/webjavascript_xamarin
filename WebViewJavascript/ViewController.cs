@@ -24,10 +24,7 @@ namespace WebViewJavascript
             sendDataButton.TouchUpInside += SendsendButtonPressedDataButton_TouchUpInside;
 
             var url = NSBundle.MainBundle.GetUrlForResource(mWebPageName, mWebPageExtension);
-            //var nsUrl = new NSUrl(url);
-            //var url = urls.FirstOrDefault();//always is first element
             webView.Configuration.Preferences.JavaScriptEnabled = true;
-            //var readUrl = nsUrl.RemoveLastPathComponent();
             webView.LoadFileUrl(url, url);
 
             var contentController = new WKUserContentController();
@@ -36,8 +33,6 @@ namespace WebViewJavascript
             //other way
             //var script = new WKUserScript(new NSString(JavaScriptFunction), WKUserScriptInjectionTime.AtDocumentEnd, false);
             //contentController.AddUserScript(script);
-
-
             webView.Configuration.UserContentController.AddScriptMessageHandler(this, mNativeToWebHandler);
         }
 
